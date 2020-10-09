@@ -16,7 +16,7 @@ fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}`).t
 var test = {
     propertyA: "hello",
     propertyB: "world"
-} 
+}; 
 console.log(test.propertyB);
 
 //based on response, we are going to populate different parts of the html with properties from the response object
