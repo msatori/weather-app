@@ -2,8 +2,8 @@
 var cityInputEl = document.getElementById("#search-input");
 var submitButtonEl = document.getElementById("#search-butt")
 var cityName = `Madison`
-var todayEl = document.getElementById("#today");
 const dateTime = moment().format(" dddd, MMMM Do YYYY, h:mm a");
+var todayEl = document.getElementById("#today");
 
 //document.querySelector("#search-input").value;
 
@@ -12,8 +12,9 @@ const dateTime = moment().format(" dddd, MMMM Do YYYY, h:mm a");
 //format the openweathermap api
 
 
+$("#submit-butt").on("click", function () {
 var citySubmitHandler = function (event) {
-    $("#submit-butt").on("click", function () {
+    
         event.preventDefault();
         var citySearchInput = submitButtonEl.val().trim();
         if (citySearchInput) {
@@ -24,9 +25,9 @@ var citySubmitHandler = function (event) {
         }
         console.log(event)
 
-    });
-};
-
+    };
+    citySubmitHandler();
+});
 
 
 //create a variable to display city
@@ -43,24 +44,22 @@ function getWeather() {
     fetch(apiURL).then(function (response) {
         response.json().then(function (data) {
             console.log(data);
-            console.log(data.weather[0].description)
             console.log(data.weather[0].description);
        
-        .then(function (data) {
+        //.then(function (data) {
         //clear old content
         todayEl = document.querySelector("#today");
         todayEl.textContent = "";
-        });
+        
         //create HTML elements for todays weather (heading, div, p)
         //add html elements (classes, cards for forecast and today)
 
 
-    
 
         //create a title element for today's forecast
-        var titleEL = document.createElement("h3");
-        titleEL.classList.add("card-title");
-        titleEL.textContent = data.name + "," + dateTime;
+        var titleEl = document.createElement("h3");
+        titleEl.classList.add("card-title");
+        titleEl.textContent = data.name + "," + dateTime;
     
         
         //create a card for storing today's forecast
@@ -92,28 +91,31 @@ function getWeather() {
         humidEl.textContent = "Humidity: " + data.main.humidity + "%";
 
         //create image element for icons
-        var iconEL = document.createElement("img")
-        iconEL.setAttribute("src", " http://openweathermap.org/img/wn/" + data.weather[0].icon + ".png");
+        var iconEl = document.createElement("img")
+        iconEl.setAttribute("src", " http://openweathermap.org/img/wn/" + data.weather[0].icon + ".png");
         
         
-        //add icon to title element
-        titleEL.appendChild(iconEL);
-        todayEl.appendChild(titleEL);
-        //place card into today div
-        todayEl.appendChild(cardEl);
-        todayEl.appendChild(cardBodyEl);
-        //place data into card
-        cardBodyEl.appendChild(weatherDesc);
-        cardBodyEl.appendChild(tempEl);
-        cardBodyEl.appendChild(windSpeedEl);
-        cardBodyEl.appendChild(humidEl);
-
-
+      //add icon to title element
+      titleEl.appendChild(iconEl);
+      todayEl.appendChild(titleEl);
+      //place card into today div
+      todayEl.appendChild(cardEl);
+      todayEl.appendChild(cardBodyEl);
+      //place data into card
+      cardBodyEl.appendChild(weatherDesc);
+      cardBodyEl.appendChild(tempEl);
+      cardBodyEl.appendChild(windSpeedEl);
+      cardBodyEl.appendChild(humidEl);
 
     });
-
     });
-};
+    };
+
+function getForecast {
+    
+} 
+
+
 getWeather();
 
 
