@@ -46,11 +46,11 @@ function getWeather() {
             console.log(data.weather[0].description)
             console.log(data.weather[0].description);
        
-        // .then(function (data) {
+        .then(function (data) {
         //clear old content
         todayEl = document.querySelector("#today");
         todayEl.textContent = "";
-        // });
+        });
         //create HTML elements for todays weather (heading, div, p)
         //add html elements (classes, cards for forecast and today)
 
@@ -68,14 +68,47 @@ function getWeather() {
         cardEl.classList.add("card");
 
         //make a body for the card
-        var cardBodyEl = document.createElement("div")
+        var cardBodyEl = document.createElement("div");
         cardBodyEl.classList.add("card-body");
 
+        //pull data for weather description
+        var weatherDesc = document.createElement("p")
+        weatherDesc.classList.add("card-text");
+        weatherDesc.textContent = data.weather[0].description
 
+        //pull data for temperature
+        var tempEl = document.createElement("p");
+        tempEl.classList.add("card-text");
+        tempEl.textContent = "Temperature: " + data.main.temp + "°F";
 
-        todayEl.appendChild(cardBodyEl);
-        todayEl.appendChild(cardEl);
+        //pull data for wind speed
+        var windSpeedEl = document.createElement("p");
+        windSpeedEl.classList.add("card-text");
+        windSpeedEl.textContent = "Wind Speed: " + data.wind.speed;
+
+        //pull data for humidity
+        var humidEl = document.createElement("p");
+        humidEl.classList.add("p");
+        humidEl.textContent = "Humidity: " + data.main.humidity + "%";
+
+        //create image element for icons
+        var iconEL = document.createElement("img")
+        iconEL.setAttribute("src", " http://openweathermap.org/img/wn/" + data.weather[0].icon + ".png");
+        
+        
+        //add icon to title element
+        titleEL.appendChild(iconEL);
         todayEl.appendChild(titleEL);
+        //place card into today div
+        todayEl.appendChild(cardEl);
+        todayEl.appendChild(cardBodyEl);
+        //place data into card
+        cardBodyEl.appendChild(weatherDesc);
+        cardBodyEl.appendChild(tempEl);
+        cardBodyEl.appendChild(windSpeedEl);
+        cardBodyEl.appendChild(humidEl);
+
+
 
     });
 
