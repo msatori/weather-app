@@ -1,19 +1,13 @@
 //our html will be structured in a way that allows for containers 
 const dateTime = moment().format(" dddd, MMMM Do YYYY, h:mm a");
 var todayEl = document.getElementById("#today");
-//document.querySelector("#search-input").value;
 
-
-
-//format the openweathermap api
-
-
-
+//function for search input 
 function citySubmitHandler() {
     var searchInput = document.querySelector("#search-input").value;
     getWeather(searchInput)
     saveHistory(searchInput);
-    
+
 };
 
 
@@ -86,7 +80,7 @@ function getWeather(searchInput) {
             cardEl.appendChild(cardBodyEl);
             //place card into today div
             todayEl.appendChild(cardEl);
-           
+
 
             getForecast(searchInput);
 
@@ -104,7 +98,7 @@ function getForecast(searchInput) {
         //get forecast container
         var forecastEl = document.querySelector("#future-forecast");
         var display = document.createElement("h3");
-        display.classList.add("row");
+        display.classList.add("row", "justify-content");
         display.textContent = "5 Day Forecast:";
 
         forecastEl.appendChild(display);
@@ -112,68 +106,68 @@ function getForecast(searchInput) {
         //loop over the forecasts
         for (var i = 5; i < 40; i += 8) {
 
-             //display forecast text
-            
-              
-
-                //create cards to push info into
-                var cardColEl = document.createElement("div");
-                cardColEl.classList.add("col-md-2");
-                var cardEl = document.createElement("div");
-                cardEl.classList.add("card", "bg-primary", "text-white");
-                //body for card
-                cardBodyEl = document.createElement("div");
-                cardBodyEl.classList.add("card-body", "p-2");
-                //card deck
-                var cardDeckEl = document.createElement("div");
-                cardDeckEl.classList.add("card-deck", "justify-center");
-
-                //info for date
-                var dateDisplay = document.createElement("h5");
-                dateDisplay.classList.add("card-title");
-                dateDisplay.textContent = data.list[i].dt_hour;
-
-                //pull temperature data
-                var tempEl = document.createElement("p");
-                tempEl.classList.add("card-text");
-                tempEl.textContent = "Temp:" + data.list[i].main.temp + "°F";
-
-                //pull windspeed data
-                var windSpeedEl = document.createElement("p");
-                windSpeedEl.classList.add("card-text")
-                windSpeedEl.textContent = data.list[i].wind.speed + "MPH";
-
-                //pull humidity data
-                var humidEl = document.createElement("p");
-                humidEl.classList.add("card-text");
-                humidEl.textContent = "Humidity: " + data.list[i].main.humidity + "%";
+            //display forecast text
 
 
-                var iconEl = document.createElement("img");
-                iconEl.setAttribute("src", "http://openweathermap.org/img/wn/" + data.list[i].weather[0].icon + ".png")
 
-                //append cards to html and info to cards
-                cardColEl.appendChild(cardEl);
-                
-                cardBodyEl.appendChild(dateDisplay);
-                cardBodyEl.appendChild(iconEl);
-                cardBodyEl.appendChild(tempEl);
-                cardBodyEl.appendChild(windSpeedEl);
-                cardBodyEl.appendChild(humidEl);
-                cardEl.appendChild(cardBodyEl);
-                cardDeckEl.appendChild(cardEl);
+            //create cards to push info into
+            var cardColEl = document.createElement("div");
+            cardColEl.classList.add("col-md-2");
+            var cardEl = document.createElement("div");
+            cardEl.classList.add("card", "bg-primary", "text-white");
+            //body for card
+            cardBodyEl = document.createElement("div");
+            cardBodyEl.classList.add("card-body", "p-2");
+            //card deck
+            var cardDeckEl = document.createElement("div");
+            cardDeckEl.classList.add("card-deck", "padding");
 
-                forecastEl.appendChild(cardDeckEl);
+            //info for date
+            var dateDisplay = document.createElement("h5");
+            dateDisplay.classList.add("card-title");
+            dateDisplay.textContent = data.list[i].dt_hour;
 
-            };
-        
+            //pull temperature data
+            var tempEl = document.createElement("p");
+            tempEl.classList.add("card-text");
+            tempEl.textContent = "Temp:" + data.list[i].main.temp + "°F";
+
+            //pull windspeed data
+            var windSpeedEl = document.createElement("p");
+            windSpeedEl.classList.add("card-text")
+            windSpeedEl.textContent = data.list[i].wind.speed + "MPH";
+
+            //pull humidity data
+            var humidEl = document.createElement("p");
+            humidEl.classList.add("card-text");
+            humidEl.textContent = "Humidity: " + data.list[i].main.humidity + "%";
+
+
+            var iconEl = document.createElement("img");
+            iconEl.setAttribute("src", "http://openweathermap.org/img/wn/" + data.list[i].weather[0].icon + ".png")
+
+            //append cards to html and info to cards
+            cardColEl.appendChild(cardEl);
+
+            cardBodyEl.appendChild(dateDisplay);
+            cardBodyEl.appendChild(iconEl);
+            cardBodyEl.appendChild(tempEl);
+            cardBodyEl.appendChild(windSpeedEl);
+            cardBodyEl.appendChild(humidEl);
+            cardEl.appendChild(cardBodyEl);
+            cardDeckEl.appendChild(cardEl);
+
+            forecastEl.appendChild(cardDeckEl);
+
+        };
+
     });
 };
 //create search history list--attch to ul element in html
 function saveHistory(searchInput) {
-   let listItem = $("<li>").addClass("list-group-item").text(searchInput);
-   $(".search-history").append(listItem);
-    };
+    let listItem = $("<li>").addClass("list-group-item").text(searchInput);
+    $(".search-history").append(listItem);
+};
 
 
 document.querySelector("#search-butt").addEventListener("click", citySubmitHandler);
